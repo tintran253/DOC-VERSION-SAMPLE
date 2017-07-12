@@ -1,0 +1,30 @@
+{
+  "name": "doc-version-sample-mini-express",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "description": "DOC-VERSION-SAMPLE-MINI-EXPRESS",
+  "author": {
+    "name": "tintt"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "bootstrap": "^3.3.7",
+    "busboy": "^0.2.14",
+    "colors": "^1.1.2",
+    "cookie-parser": "^1.4.0",
+    "debug": "^2.2.0",
+    "diff": "^3.3.0",
+    "express": "^4.14.0",
+    "jquery": "^3.2.1",
+    "jsdom": "^10.1.0",
+    "lodash": "^4.17.4",
+    "mammoth": "^1.4.1",
+    "morgan": "^1.7.0",
+    "pug": "^2.0.0-beta6",
+    "q": "^1.5.0",
+    "serve-favicon": "^2.3.0"
+  }
+}

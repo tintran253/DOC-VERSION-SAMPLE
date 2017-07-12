@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "DOC-VERSION-SAMPLE", "DOC-VERSION-SAMPLE\DOC-VERSION-SAMPLE.njsproj", "{EB427516-6C5F-4CAC-9349-1AFE8EF27BE5}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "DOC-VERSION-SAMPLE-MINI-EXPRESS", "DOC-VERSION-SAMPLE-MINI-EXPRESS\DOC-VERSION-SAMPLE-MINI-EXPRESS.njsproj", "{FECCDD8D-40A9-459D-AA2F-63140FDFF27E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB427516-6C5F-4CAC-9349-1AFE8EF27BE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB427516-6C5F-4CAC-9349-1AFE8EF27BE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB427516-6C5F-4CAC-9349-1AFE8EF27BE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB427516-6C5F-4CAC-9349-1AFE8EF27BE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FECCDD8D-40A9-459D-AA2F-63140FDFF27E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FECCDD8D-40A9-459D-AA2F-63140FDFF27E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FECCDD8D-40A9-459D-AA2F-63140FDFF27E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FECCDD8D-40A9-459D-AA2F-63140FDFF27E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
