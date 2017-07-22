@@ -1,0 +1,14 @@
+﻿extends layout
+
+block content
+  h1= compose	
+  ul
+    each v in files
+      li= v
+  textarea#editor1
+
+
+  script.
+    $(document).on('ready', function(){
+      CKEDITOR.replace('editor1')
+    });

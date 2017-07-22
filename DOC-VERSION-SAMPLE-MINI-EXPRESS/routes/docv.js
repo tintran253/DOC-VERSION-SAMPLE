@@ -10,10 +10,21 @@ require("colors");
 var mammoth = require("mammoth");
 var Q = require("q");
 var diff = require("diff");
-var _ = require
+var fs = require('fs');
+
 /* GET users listing. */
-router.get('/', function (req, res) {
+router.get('/upload', function (req, res) {
     res.render('docv', { title: 'word docs' });
+});
+
+router.get('/compose', function (req, res) {
+    const testFolder = './upload/';
+    var result = [];
+    Q.nfcall(fs.readdir, testFolder)
+        .then(function (results) {
+            console.log(results);
+            res.render('compose', { title: 'compose', files: results });
+        });
 });
 
 router.post('/', function (req, res) {
