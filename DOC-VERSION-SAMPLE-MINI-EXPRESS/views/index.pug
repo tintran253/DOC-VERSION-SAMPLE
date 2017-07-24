@@ -3,8 +3,13 @@
 block content
   h1= title
   p Welcome to #{title}
-
   p
-    a(href="/docv/upload") Upload
+    a(href="/login") Login
   p
-    a(href="/docv/compose") Compose
+    a(href="/upload") Upload
+ 
+  List Document
+  ul
+    each v in result
+      li
+        a(href="/compose/"+ v.id) !{v.title}

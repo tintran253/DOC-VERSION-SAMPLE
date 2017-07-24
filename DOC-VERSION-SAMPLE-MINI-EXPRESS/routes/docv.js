@@ -12,43 +12,49 @@ var Q = require("q");
 var diff = require("diff");
 var fs = require('fs');
 
+var User = require("../src/models/user");
+var Docs = require("../src/models/docs");
+
 /* GET users listing. */
-router.get('/upload', function (req, res) {
-    res.render('docv', { title: 'word docs' });
+router.get('/', function (req, res) {
+    res.render('upload', { title: 'word docs' });
 });
 
-router.get('/compose', function (req, res) {
-    const testFolder = './upload/';
-    var result = [];
-    Q.nfcall(fs.readdir, testFolder)
-        .then(function (results) {
-            console.log(results);
-            res.render('compose', { title: 'compose', files: results });
-        });
-});
+
 
 router.post('/', function (req, res) {
     var busboy = new Busboy({ headers: req.headers });
-    var fileNames = [];
+    var fileName = "";
+    var fullPath = "";
     busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
-        var saveTo = path.join(path.parse(__dirname).dir, '/upload/', path.basename(filename));
-        fileNames.push(saveTo)
-        file.pipe(fs.createWriteStream(saveTo));
+        fileName = filename;
+        fullPath = path.join(path.parse(__dirname).dir, '/upload/', path.basename(filename));
+        file.pipe(fs.createWriteStream(fullPath));
     });
     busboy.on('finish', function () {
-        Q.all([mammoth.convertToHtml({ path: fileNames[0] }), mammoth.convertToHtml({ path: fileNames[1] })]).spread(function (res1, res2) {
-            var diffResult = diff.diffChars(res1.value, res2.value);
-            var i = 0;
-            var result = '';
-            diffResult.forEach(function (part) {
-                var state = part.added ? '+' :
-                    part.removed ? '-' : '';
-                //var color = part.added ? 'green' :
-                //    part.removed ? 'red' : 'grey';
-                result += state + part.value
-                //console.log(i++, state, part.value);
+        Q.all([mammoth.convertToHtml({ path: fullPath })]).spread(function (res1) {
+
+            return Docs.sync({ force: false }).then(function () {
+                return Docs.create({
+                    title: fileName,
+                    url: fullPath,
+                    content: res1.value
+                });
             });
-            res.render('docv', { title: 'words only', res1: res1.value, res2: res2.value, result: result });
+            //var diffResult = diff.diffChars(res1.value, res2.value);
+            //var i = 0;
+            //var result = '';
+            //diffResult.forEach(function (part) {
+            //    var state = part.added ? '+' :
+            //        part.removed ? '-' : '';
+            //    //var color = part.added ? 'green' :
+            //    //    part.removed ? 'red' : 'grey';
+            //    result += state + part.value
+            //    //console.log(i++, state, part.value);
+            //});
+
+        }).then(function (result) {
+            res.render('upload', { title: 'words only', result: result.content });
         });
     });
     req.pipe(busboy);

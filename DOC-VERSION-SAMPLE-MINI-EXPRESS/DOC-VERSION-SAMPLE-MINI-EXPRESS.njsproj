@@ -30,20 +30,43 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="routes\auth.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="routes\index.js" />
     <Compile Include="routes\docv.js" />
+    <Compile Include="src\common\auth.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\models\docs.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\models\user.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\repository\db.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
     <Content Include="views\compose.pug">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\docv.pug" />
+    <Content Include="views\upload.pug" />
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
+    <Content Include="views\login.pug">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="src\" />
+    <Folder Include="src\models\" />
+    <Folder Include="src\config\" />
+    <Folder Include="src\common\" />
+    <Folder Include="src\repository\" />
     <Folder Include="upload\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />

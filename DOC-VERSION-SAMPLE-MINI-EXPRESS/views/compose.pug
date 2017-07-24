@@ -1,14 +1,17 @@
 ﻿extends layout
 
 block content
-  h1= compose	
-  ul
-    each v in files
-      li= v
-  textarea#editor1
-
-
+  h1= compose
+  form(method='POST' action='/compose')
+    input(type='hidden' name='id' id='id' value=result.id)
+    div.form-group
+      label(for='title') title:
+      input.form-control(type='text' name='title' id='title' value=result.title)
+    div.form-group
+      label(for='content') content:
+      textarea#content(name="content") !{result.content}    
+    button.btn.btn-primary(type='submit') Save
   script.
     $(document).on('ready', function(){
-      CKEDITOR.replace('editor1')
+      CKEDITOR.replace('content')
     });

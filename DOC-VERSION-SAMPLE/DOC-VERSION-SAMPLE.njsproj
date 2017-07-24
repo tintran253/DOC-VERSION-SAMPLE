@@ -29,6 +29,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="db.js" />
     <Content Include="doc\01.docx" />
     <Content Include="doc\02.docx" />
     <Content Include="doc\03-f.docx" />

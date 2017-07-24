@@ -6,9 +6,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var passport = require('passport');
+var flash = require('connect-flash');
 var routes = require('./routes/index');
 var docv = require('./routes/docv');
+var session = require('express-session');
 
 var app = express();
 
@@ -23,10 +25,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+app.use(session({ secret: 'xxx', name: 'ss_xxx', saveUninitialized: true, resave: true }));
 
 app.use('/', routes);
-app.use('/docv', docv);
-
+app.use('/upload', docv);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
