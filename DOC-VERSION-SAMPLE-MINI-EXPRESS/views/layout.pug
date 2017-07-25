@@ -5,7 +5,12 @@ html
     link(rel='stylesheet', href='/stylesheets/main.css')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-  body
+  body        
+
     block content
+
+    if user
+      a(href="/logout") !{user.username} | Logout
+
     script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
     script(src="https://cdn.ckeditor.com/4.7.1/standard/ckeditor.js")

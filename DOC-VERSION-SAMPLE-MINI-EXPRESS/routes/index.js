@@ -7,7 +7,7 @@ var Docs = require("../src/models/docs");
 /* GET home page. */
 router.get('/', function (req, res) {
     Docs.findAll().then(function (result) {
-        res.render('index', { title: 'DOCV', result: result });
+        res.render('index', { title: 'DOCV', result: result, user: req.session && req.session.passport && req.session.passport.user ? req.session.passport.user : null });
     })
 });
 
@@ -52,9 +52,15 @@ router.get('/login', function (req, res) {
     res.render('login')
 });
 
+router.get('/logout', function (req, res) {
+    req.logout();
+    res.render('index')
+});
+
+
 router.post('/login',
     passport.authenticate('local', {
-        successRedirect: '/compose/1',
+        successRedirect: '/',
         failureRedirect: '/login',
         failureFlash: true
     })

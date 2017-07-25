@@ -11,6 +11,8 @@ block content
       label(for='content') content:
       textarea#content(name="content") !{result.content}    
     button.btn.btn-primary(type='submit') Save
+  <br>
+  a(href="/") << | Home
   script.
     $(document).on('ready', function(){
       CKEDITOR.replace('content')
