@@ -8,8 +8,9 @@ block content
   p
     a(href="/upload") Upload
  
-  List Document
-  ul
-    each v in result
-      li
-        a(href="/compose/"+ v.id) !{v.title}
+  | List Document
+  if result
+    ul
+      each v in result
+        li
+          a(href="/compose/"+ v.id) !{v.title}

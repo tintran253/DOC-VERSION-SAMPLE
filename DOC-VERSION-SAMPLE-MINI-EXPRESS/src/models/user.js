@@ -3,7 +3,7 @@ var Sequelize = require("sequelize");
 var sequelize = require("../repository/db");
 
 const User = sequelize.define('user', {
-    userName: {
+    username: {
         type: Sequelize.STRING
     },
     password: {
