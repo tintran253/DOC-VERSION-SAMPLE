@@ -1,0 +1,18 @@
+﻿extends ../layout
+
+block content
+
+  h1 Histories of !{result.title}
+  if histories
+    ul
+      each v in histories
+        li
+          input(type='checkbox') 
+          |  !{v.updatedAt} 
+          || 
+          a(href="/compose/"+ v.id) View 
+
+  button.btn.btn-primary() Compare
+  br
+  br
+  a(href="/") << | Homepage

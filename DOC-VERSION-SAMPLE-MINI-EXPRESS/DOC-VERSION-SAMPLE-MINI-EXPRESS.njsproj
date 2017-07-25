@@ -38,6 +38,9 @@
     <Compile Include="src\common\auth.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\models\docs-version.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\models\docs.js">
       <SubType>Code</SubType>
     </Compile>
@@ -50,7 +53,13 @@
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
+    <Content Include="views\auth\register.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\compose.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\docs\history.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\upload.pug" />
@@ -74,6 +83,8 @@
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />
     <Folder Include="views\" />
+    <Folder Include="views\auth\" />
+    <Folder Include="views\docs\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />

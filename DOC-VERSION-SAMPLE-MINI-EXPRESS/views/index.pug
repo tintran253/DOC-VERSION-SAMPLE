@@ -5,6 +5,8 @@ block content
   p Welcome to #{title}
   if !user
       p
+        a(href="/register") Register 
+        || 
         a(href="/login") Login    
   if user
     p
@@ -15,5 +17,9 @@ block content
       ul
         each v in result
           li
-            a(href="/compose/"+ v.id) !{v.title}
+            | !{v.title} 
+            || 
+            a(href="/compose/"+ v.id) Edit 
+            || 
+            a(href="/history/"+ v.id) History 
 
