@@ -30,12 +30,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
-    <Compile Include="routes\auth.js">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="routes\index.js" />
     <Compile Include="routes\docv.js" />
-    <Compile Include="src\common\auth.js">
+    <Compile Include="src\common\passport.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\models\docs-version.js">
@@ -59,7 +56,13 @@
     <Content Include="views\compose.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\docs\compare.pug">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\docs\history.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\docs\view.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\upload.pug" />

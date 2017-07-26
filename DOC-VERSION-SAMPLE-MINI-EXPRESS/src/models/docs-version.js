@@ -19,19 +19,23 @@ const DocsVersion = sequelize.define('docs-version', {
     },
     content: {
         type: Sequelize.TEXT
-    },
-    updatedBy: {
-        type: Sequelize.INTEGER,
-        references: {
-            // This is a reference to another model
-            model: User,
+    }
+    //,
+    //updatedBy: {
+    //    type: Sequelize.INTEGER,
+    //    references: {
+    //        // This is a reference to another model
+    //        model: User,
 
-            // This is the column name of the referenced model
-            key: 'id',
+    //        // This is the column name of the referenced model
+    //        key: 'id',
 
-            // This declares when to check the foreign key constraint. PostgreSQL only.
-            deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
-        }
-    },
+    //        // This declares when to check the foreign key constraint. PostgreSQL only.
+    //        deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+    //    }
+    //},
 });
+
+DocsVersion.belongsTo(User, { as: 'updatedBy' });
+
 module.exports = DocsVersion;

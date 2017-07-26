@@ -6,7 +6,7 @@ var User = require("../models/user");
 
 passport.use(new LocalStrategy({ passReqToCallback: true }, function (req, username, password, done) {
     User.sync().then(() => {
-        User.findOne({ username: username }).then(function (user) {
+        User.findOne({ where: { username: username }}).then(function (user) {
             if (!user) {
                 return done(null, false, { message: 'Incorrect username.' });
             }

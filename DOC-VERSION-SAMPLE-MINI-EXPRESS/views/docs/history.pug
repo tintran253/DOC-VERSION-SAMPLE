@@ -2,17 +2,41 @@
 
 block content
 
-  h1 Histories of !{result.title}
-  if histories
-    ul
-      each v in histories
-        li
-          input(type='checkbox') 
-          |  !{v.updatedAt} 
-          || 
-          a(href="/compose/"+ v.id) View 
+  h1 histories of !{result.title}
 
-  button.btn.btn-primary() Compare
+  if histories
+    ul.list-group
+      each v in histories
+        li.list-group-item
+          input(type='checkbox', id="chkCompare"+ v.id, value=v.id) 
+          |  
+          label(for="chkCompare"+ v.id) !{v.updatedAt}
+          |  |  
+          label.label.label-default edited by !{v.updatedBy.username}
+          |  |  
+          a(href="/view/"+ v.id) View 
+          
+  button.btn.btn-primary#btnCompare() Compare
   br
   br
-  a(href="/") << | Homepage
+  a(href="/") << | back to home
+
+  script.
+    $(document).ready(function(){
+        $('#btnCompare').on('click', function(){
+            var checkedValues = $('input:checked');
+            var url = "/compare/{0}/vs/{1}";
+            if(checkedValues.length === 1 ){
+                url = url.replace("{0}", checkedValues[0].value)
+                url = url.replace("{1}", checkedValues[1].value)
+            }
+            else if(checkedValues.length === 2 ){
+                url = url.replace("{0}", checkedValues[0].value)
+                url = url.replace("{1}", checkedValues[1].value)
+            } else {
+                alert("vui long chon it nhat mot dong de so sanh");
+                return false;
+            }
+            window.location.href = url;
+        })
+    });

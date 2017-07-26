@@ -33,26 +33,13 @@ router.post('/', function (req, res) {
     });
     busboy.on('finish', function () {
         Q.all([mammoth.convertToHtml({ path: fullPath })]).spread(function (res1) {
-
-            return Docs.sync({ force: false }).then(function () {
+            return Docs.sync().then(function () {
                 return Docs.create({
                     title: fileName,
                     url: fullPath,
                     content: res1.value
                 });
             });
-            //var diffResult = diff.diffChars(res1.value, res2.value);
-            //var i = 0;
-            //var result = '';
-            //diffResult.forEach(function (part) {
-            //    var state = part.added ? '+' :
-            //        part.removed ? '-' : '';
-            //    //var color = part.added ? 'green' :
-            //    //    part.removed ? 'red' : 'grey';
-            //    result += state + part.value
-            //    //console.log(i++, state, part.value);
-            //});
-
         }).then(function (result) {
             res.render('upload', { title: 'words only', result: result.content });
         });

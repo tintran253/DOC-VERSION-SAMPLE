@@ -1,0 +1,13 @@
+﻿extends ../layout
+
+block content
+  
+  h3 Compare  
+  
+  div.container
+    div.row
+      div.col-md-6(style='border: 1px dashed black;') !{result1.content}
+      div.col-md-6(style='border: 1px dashed black;') !{result2.content}
+  br
+  |!{result}
+  a(href="/history/"+ result1.docsId) << | back to history

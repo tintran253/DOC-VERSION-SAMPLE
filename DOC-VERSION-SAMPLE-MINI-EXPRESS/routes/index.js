@@ -1,11 +1,13 @@
 ﻿'use strict';
 var express = require('express');
 var router = express.Router();
-var passport = require("../src/common/auth");
+var passport = require("../src/common/passport");
 var Docs = require("../src/models/docs");
 var Users = require("../src/models/user");
 var DocsVersion = require("../src/models/docs-version");
-
+var Q = require("q");
+var diff = require("diff");
+var HtmlDiffer = require('html-differ').HtmlDiffer;
 /* GET home page. */
 router.get('/', function (req, res) {
     Docs.sync().then(() => {
@@ -15,7 +17,6 @@ router.get('/', function (req, res) {
     });
 });
 
-
 router.get('/compose/:id', function (req, res) {
     var id = req.params.id;
     const testFolder = './upload/';
@@ -23,7 +24,7 @@ router.get('/compose/:id', function (req, res) {
 
     Docs.findById(id).then(function (result) {
         DocsVersion.findAll({
-            docsId: id,
+            where: { docsId: id },
             order: [
                 ['updatedAt', 'DESC']
             ]
@@ -32,11 +33,6 @@ router.get('/compose/:id', function (req, res) {
                 result.content = resl[0].content
             res.render('compose', { title: 'compose', result: result });
         })
-        //Q.nfcall(fs.readdir, testFolder)
-        //    .then(function (results) {
-        //        console.log(results);
-        //        res.render('compose', { title: 'compose', files: results });
-        //    });
     });
 });
 
@@ -48,30 +44,15 @@ router.post('/compose', function (req, res) {
     DocsVersion.sync().then(() => {
         return DocsVersion.create({
             docsId: id,
-            updatedBy: req.session.passport.user.id,
+            updatedById: req.session.passport.user.id,
             content: req.body.content
         }).then((rs) => {
             Docs.findById(id).then(function (result) {
                 result.content = rs.content;
                 res.render('compose', { title: 'compose', result: result });
             });
-            //res.render('compose', { title: 'compose', result: result });
         });
     });
-
-    //Docs.update({
-    //    content: req.body.content,
-    //    title: req.body.title
-    //}, {
-    //        where: {
-    //            id: id
-    //        }
-    //    }).then(function (result) {
-    //        Docs.findById(id).then(function (result) {
-    //            console.log(result);
-    //            res.render('compose', { title: 'compose', result: result });
-    //        });
-    //    });
 });
 
 router.get('/login', function (req, res) {
@@ -83,13 +64,11 @@ router.get('/logout', function (req, res) {
     res.render('index')
 });
 
-router.post('/login',
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/login',
-        failureFlash: true
-    })
-);
+router.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+}));
 
 router.get('/register', function (req, res) {
     res.render('auth/register')
@@ -106,22 +85,73 @@ router.post('/register', function (req, res) {
             if (user)
                 res.render('login')
         });
-}
-);
+});
 
 router.get('/history/:id', function (req, res) {
-    return Docs.findById(req.params.id)
-        .then((docs) => {
-            return DocsVersion.findAll({
-                docsId: req.params.id,
-                order: [
-                    ['updatedAt', 'DESC']
-                ]
-            }).then(function (resl) {
-                res.render("docs/history", { result: docs, histories: resl });
+    return Docs.sync().then(() => {
+        Docs.findById(req.params.id)
+            .then((docs) => {
+                DocsVersion.sync().then(() => {
+                    return DocsVersion.findAll({
+                        where: { docsId: req.params.id },
+                        order: [
+                            ['updatedAt', 'DESC']
+                        ],
+                        include: ['updatedBy']
+                    }).then(function (resl) {
+                        res.render("docs/history", { result: docs, histories: resl });
+                    });
+                })
+            })
+    });
+});
+
+router.get('/view/:id', function (req, res) {
+    return DocsVersion.findById(req.params.id)
+        .then((docsVersion) => {
+            res.render("docs/view", { result: docsVersion });
+        });
+});
+
+router.get('/compare/:id/vs/:id2', function (req, res) {
+    return Q.all([DocsVersion.findById(req.params.id), DocsVersion.findById(req.params.id2)])
+        .spread(function (result1, result2) {
+
+            var options = {
+                ignoreAttributes: [],
+                compareAttributesAsJSON: [],
+                ignoreWhitespaces: true,
+                ignoreComments: true,
+                ignoreEndTags: false,
+                ignoreDuplicateAttributes: true
+            };
+            var htmlDiffer = new HtmlDiffer(options);
+            //var diffResult = htmlDiffer.diffHtml(result1.content, result2.content);
+
+            var diffResult = diff.diffChars(result1.content, result2.content, { ignoreCase: false});
+            //var i = 0;
+            var result = '';
+            var span = null;
+            var color = '';
+            diffResult.forEach(function (part) {
+                //var state = part.added ? '+' :
+                //    part.removed ? '-' : '';
+                //var color = part.added ? 'green' :
+                //    part.removed ? 'red' : 'grey';
+                //result += state + part.value
+                //console.log(i++, state, part.value);
+                // green for additions, red for deletions 
+                // grey for common parts 
+                color = part.added ? 'color:green' :
+                    part.removed ? 'color:red' : '';
+                span = "<span style='" + color + "'>";
+                span += part.value;
+                result += span + "</span>";
+                //fragment.appendChild(span);
             });
-        })
-}
-);
+
+            res.render("docs/compare", { result1: result1, result2: result2, result: result });
+        });
+});
 
 module.exports = router;
