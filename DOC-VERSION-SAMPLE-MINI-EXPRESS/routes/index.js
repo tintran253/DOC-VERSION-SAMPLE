@@ -130,15 +130,12 @@ router.get('/compare/:id/vs/:id2', function (req, res) {
             var htmlDiffer = new HtmlDiffer(options);
             //var diffResult = htmlDiffer.diffHtml(result1.content, result2.content);
 
-            var diffResult = diff.diffChars(result1.content, result2.content, { ignoreCase: false });
+            var diffResult = diff.diffChars(result2.content, result1.content, { ignoreCase: false });
             //var i = 0;
             var result = '';
-            
-            var color = '';
 
             var result01 = "";
             var result02 = "";
-            var status = "";
             diffResult.forEach(function (part) {
                 var span = null;
                 var state = part.added ? 2 :
@@ -149,7 +146,7 @@ router.get('/compare/:id/vs/:id2', function (req, res) {
                 //console.log(i++, state, part.value);
                 // green for additions, red for deletions 
                 // grey for common parts 
-                color = part.added ? 'background-color:green' :
+                var color = part.added ? 'background-color:green' :
                     part.removed ? 'background-color:red' : '';
                 if (state === 0) {
                     result01 += part.value;
@@ -162,7 +159,7 @@ router.get('/compare/:id/vs/:id2', function (req, res) {
                 } else {
                     result02 += "<span style='background-color:green'></span>";
                 }
-                if (part.removed === 1) {
+                if (state === 1) {
                     span = "<span style='" + color + "'>";
                     span += part.value;
                     result01 += span + "</span>";
