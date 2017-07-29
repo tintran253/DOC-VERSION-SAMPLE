@@ -23,15 +23,17 @@ router.get('/compose/:id', function (req, res) {
     var result = [];
 
     Docs.findById(id).then(function (result) {
-        DocsVersion.findAll({
-            where: { docsId: id },
-            order: [
-                ['updatedAt', 'DESC']
-            ]
-        }).then((resl) => {
-            if (resl.length > 0)
-                result.content = resl[0].content
-            res.render('compose', { title: 'compose', result: result });
+        DocsVersion.sync().then(() => {
+            DocsVersion.findAll({
+                where: { docsId: id },
+                order: [
+                    ['updatedAt', 'DESC']
+                ]
+            }).then((resl) => {
+                if (resl.length > 0)
+                    result.content = resl[0].content
+                res.render('compose', { title: 'compose', result: result });
+            })
         })
     });
 });
@@ -128,29 +130,53 @@ router.get('/compare/:id/vs/:id2', function (req, res) {
             var htmlDiffer = new HtmlDiffer(options);
             //var diffResult = htmlDiffer.diffHtml(result1.content, result2.content);
 
-            var diffResult = diff.diffChars(result1.content, result2.content, { ignoreCase: false});
+            var diffResult = diff.diffChars(result1.content, result2.content, { ignoreCase: false });
             //var i = 0;
             var result = '';
-            var span = null;
+            
             var color = '';
+
+            var result01 = "";
+            var result02 = "";
+            var status = "";
             diffResult.forEach(function (part) {
-                //var state = part.added ? '+' :
-                //    part.removed ? '-' : '';
+                var span = null;
+                var state = part.added ? 2 :
+                    part.removed ? 1 : 0;
                 //var color = part.added ? 'green' :
                 //    part.removed ? 'red' : 'grey';
                 //result += state + part.value
                 //console.log(i++, state, part.value);
                 // green for additions, red for deletions 
                 // grey for common parts 
-                color = part.added ? 'color:green' :
-                    part.removed ? 'color:red' : '';
-                span = "<span style='" + color + "'>";
-                span += part.value;
-                result += span + "</span>";
+                color = part.added ? 'background-color:green' :
+                    part.removed ? 'background-color:red' : '';
+                if (state === 0) {
+                    result01 += part.value;
+                    result02 += part.value;
+                }
+                if (state === 2) {
+                    span = "<span style='" + color + "'>";
+                    span += part.value;
+                    result02 += span + "</span>";
+                } else {
+                    result02 += "<span style='background-color:green'></span>";
+                }
+                if (part.removed === 1) {
+                    span = "<span style='" + color + "'>";
+                    span += part.value;
+                    result01 += span + "</span>";
+                }
+                else {
+                    result01 += "<span style='background-color:red'></span>";
+                }
+                //span = "<span style='" + color + "'>";
+                //span += part.value;
+                //result += span + "</span>";
                 //fragment.appendChild(span);
             });
 
-            res.render("docs/compare", { result1: result1, result2: result2, result: result });
+            res.render("docs/compare", { result1: result01, result2: result02, docsId: result1.docsId });
         });
 });
 

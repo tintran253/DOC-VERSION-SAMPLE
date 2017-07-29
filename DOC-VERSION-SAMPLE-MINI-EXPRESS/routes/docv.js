@@ -32,7 +32,12 @@ router.post('/', function (req, res) {
         file.pipe(fs.createWriteStream(fullPath));
     });
     busboy.on('finish', function () {
-        Q.all([mammoth.convertToHtml({ path: fullPath })]).spread(function (res1) {
+        var options = {
+            styleMap: [
+                "b => b"
+            ]
+        };
+        Q.all([mammoth.convertToHtml({ path: fullPath }, options)]).spread(function (res1) {
             return Docs.sync().then(function () {
                 return Docs.create({
                     title: fileName,
