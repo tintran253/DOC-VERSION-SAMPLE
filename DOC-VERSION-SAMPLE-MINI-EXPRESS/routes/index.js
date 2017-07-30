@@ -17,9 +17,8 @@ router.get('/', function (req, res) {
     });
 });
 
-router.get('/compose/:id', function (req, res) {
+router.get('/edit/:id', function (req, res) {
     var id = req.params.id;
-    const testFolder = './upload/';
     var result = [];
 
     Docs.findById(id).then(function (result) {
@@ -32,13 +31,13 @@ router.get('/compose/:id', function (req, res) {
             }).then((resl) => {
                 if (resl.length > 0)
                     result.content = resl[0].content
-                res.render('compose', { title: 'compose', result: result });
+                res.render('docs/edit', { title: 'edit', result: result });
             })
         })
     });
 });
 
-router.post('/compose', function (req, res) {
+router.post('/edit', function (req, res) {
     var id = req.body.id;
     const testFolder = './upload/';
     var result = [];
@@ -51,7 +50,7 @@ router.post('/compose', function (req, res) {
         }).then((rs) => {
             Docs.findById(id).then(function (result) {
                 result.content = rs.content;
-                res.render('compose', { title: 'compose', result: result });
+                res.render('docs/edit', { title: 'edit', result: result });
             });
         });
     });
@@ -62,14 +61,14 @@ router.get('/login', function (req, res) {
 });
 
 router.get('/logout', function (req, res) {
-    req.logout();
-    res.render('index')
+    req.session.destroy(function (err) {
+        res.render('index');
+    });
 });
 
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
+    failureRedirect: '/login'
 }));
 
 router.get('/register', function (req, res) {

@@ -1,0 +1,22 @@
+﻿extends ../layout
+
+block header
+block content
+    .container
+        .row
+            form(method='POST' action='/edit')
+                input(type='hidden' name='id' id='id' value=result.id)                
+                .form-group
+                    label(for='content')
+                    textarea#content(name="content") !{result.content}    
+                button.btn.btn-primary(type='submit') Save
+        br
+        .row
+            p
+                a(href="/") Home    
+                | | 
+                a(href="/history/"+ result.id) View History 
+    script.
+        $(document).on('ready', function(){
+            CKEDITOR.replace('content',{ customConfig: '/scripts/ckeditor_config.js'});
+        })

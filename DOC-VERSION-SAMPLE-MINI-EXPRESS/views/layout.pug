@@ -2,15 +2,48 @@
 html
   head
     title= title
+    //script(src='/scripts/jquery-3.1.1.slim.min.js')
+    script(src='/scripts/jquery.js')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/main.css')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js')
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    script(src="/scripts/ckeditor/ckeditor.js")
   body        
+    #navbarHeader.collapse.bg-inverse
+      .container
+        .row
+          .col-sm-8.py-4
+            h4.text-white About
+            p.text-muted
+              | Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.
+          .col-sm-4.py-4
+            h4.text-white Contact
+            ul.list-unstyled
+              li
+                a.text-white(href='#') Follow on Twitter
+              li
+                a.text-white(href='#') Like on Facebook
+              li
+                a.text-white(href='#') Email me
+    .navbar.navbar-inverse.bg-inverse
+      .container.d-flex.justify-content-between
+        a.navbar-brand(href='/') DOC-VERSIONING
+        //button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarHeader', aria-controls='navbarHeader', aria-expanded='false', aria-label='Toggle navigation')
+          span.navbar-toggler-icon
 
-    block content
+    block header
+    .album.text-muted
+      .container
+        block content
 
     if user
       a(href="/logout") !{user.username} | Logout
+    script(src="/scripts/tether.min.js")
+    script(src="/scripts/bootstrap.min.js")
+    script(src="/scripts/holder.min.js")
 
-    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
-    script(src="https://cdn.ckeditor.com/4.7.1/standard/ckeditor.js")
+    script.
+      $(function () {
+        Holder.addTheme("thumb", { background: "#55595c", foreground: "#eceeef", text: "Thumbnail" });
+      });
+
+    

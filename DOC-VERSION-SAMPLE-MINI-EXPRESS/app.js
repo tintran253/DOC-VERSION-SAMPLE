@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var flash = require('connect-flash');
 var routes = require('./routes/index');
-var docv = require('./routes/docv');
+var docs = require('./routes/docs');
 var session = require('express-session');
 
 var app = express();
@@ -25,13 +25,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use(session({ secret: 'xxx', name: 'ss_xxx', saveUninitialized: true, resave: true }));
+app.use(session({ secret: 'xxx', name: 'ss_xxx', saveUninitialized: false, resave: false }));
 
 app.use('/', routes);
-app.use('/upload', docv);
+app.use('/docs', docs);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');

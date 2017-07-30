@@ -1,25 +1,32 @@
 ﻿extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
+block header
+  section.jumbotron.text-center
+    .container
+      h1.jumbotron-heading Document Versioning 
+      p.lead.text-muted
+        | Sample
+      img(src="/images/version.png", width="200")
   if !user
-      p
-        a(href="/register") Register 
-        || 
-        a(href="/login") Login    
+    .text-center
+      .container
+        p#custom-margin
+          a.btn.btn-primary(href='/register') Register
+          a.btn.btn-secondary(href='/login') Login  
+block content  
   if user
-    p
-      a(href="/upload") Upload
- 
-    | List Document
-    if result
-      ul
+    .row#custom-margin
+      a.btn.btn-primary(href="/docs") + Upload
+      a.btn.btn-primary(href="/docs/compose") + Paste from Word | Compose
+    br
+    .row
+      if result
         each v in result
-          li
-            | !{v.title} 
-            || 
-            a(href="/compose/"+ v.id) Edit 
-            || 
-            a(href="/history/"+ v.id) History 
+          .card
+            img(data-src="holder.js/100px280/thumb", alt="")
+            .p.card-text
+              h5 !{v.title}               
+              a(href="/edit/"+ v.id) Edit 
+              || 
+              a(href="/history/"+ v.id) View History
 
+  

@@ -1,16 +1,16 @@
 ﻿extends layout
 
 block content
-  h1= title
-
-  form(method='POST' action='/upload' enctype="multipart/form-data")
-    div.form-group
-      label(for='file01') word document:
-      input(type='file' name='file01' id='file01')   
-    button.btn.btn-primary(type='submit') Upload
-  
+  .container
+  form(method='POST' action='/docs' enctype="multipart/form-data")
+    .row
+      .form-group
+        label(for='file01') Upload file word:
+        input.form-control(type='file' name='file01' id='file01')
+    .row
+      button.btn.btn-primary(type='submit') Submit  
   br
-  div.row
-    div.col-md-12 !{result}
-
-  a(href="/") << | Homepage
+  .row
+    .col-md-12 !{result}
+  .row
+    a(href="/") Home

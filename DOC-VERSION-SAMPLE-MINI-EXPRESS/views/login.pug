@@ -1,15 +1,19 @@
 ﻿extends layout
 
+block header
 block content
-  h1= title
-
+  .container
   form(method='POST' action='/login')
-    div.row
-      div.form-group.col-lg-3
-        label(for='userName') Username:
-        input.form-control(type='text' name='username' id='username')
-    div.row
-      div.form-group.col-lg-3
-        label(for='password') Password:
-        input.form-control(type='password' name='password' id='password')    
-    button.btn.btn-primary(type='submit') Login  
+      h2.text-center.jumbotron-heading
+        | Login
+      .row        
+        .form-group.col-md-4.offset-md-4
+          label(for='username') Username*:
+          input.form-control(type='text' name='username' id='username')
+      .row
+        .form-group.col-md-4.offset-md-4
+          label(for='password') Password*:
+          input.form-control(type='password' name='password' id='password')        
+      .row
+        .col-md-4.offset-md-4
+          button.btn.btn-primary(type='submit') Submit    

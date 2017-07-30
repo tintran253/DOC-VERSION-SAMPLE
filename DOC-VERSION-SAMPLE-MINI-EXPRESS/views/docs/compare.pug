@@ -2,24 +2,26 @@
 
 block content
   
-  h3 Compare  
-  
-  div.container-fluid
-    div.row
-      div#result1.col-md-6(style='border: 1px dashed black;') !{result1}
-      div#result2.col-md-6(style='border: 1px dashed black;') !{result2}
-  br
-  |!{result}
-  a(href="/history/"+ docsId) << | back to history
+    .container-fluid
+        .row
+            #result1.col-md-6(style='border: 1px dashed black;') !{result1}
+            #result2.col-md-6(style='border: 1px dashed black;') !{result2}
+        br
+        |!{result}
+        .row
+            p
+                a(href="/") Home 
+                | | 
+                a(href="/history/"+ docsId) View History 
 
-  script.
-    $(document).ready(function(){
-        $.each($('#result2 span[style*="background-color:green"]'), function(i, e){
-            $(e).parent('p').css('background-color','yellowgreen');
-            $(e).parent('li').css('background-color','yellowgreen');
+    script.
+        $(document).ready(function(){
+            $.each($('#result2 span[style*="background-color:green"]'), function(i, e){
+                $(e).parent('p').css('background-color','yellowgreen');
+                $(e).parent('li').css('background-color','yellowgreen');
+            });
+            $.each($('#result1 span[style*="background-color:red"]'), function(i, e){
+                $(e).parent('p').css('background-color','burlywood');
+                $(e).parent('li').css('background-color','burlywood');
+            })
         });
-        $.each($('#result1 span[style*="background-color:red"]'), function(i, e){
-            $(e).parent('p').css('background-color','burlywood');
-            $(e).parent('li').css('background-color','burlywood');
-        })
-    });

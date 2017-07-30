@@ -1,42 +1,61 @@
 ﻿extends ../layout
 
 block content
+    .container
+        .row 
+            h1 histories of !{result.title}
+        .row
+            if histories
+                .table-responsive
+                    table.table.table-striped
+                        thead
+                            tr
+                                td
+                                    |
+                                td
+                                    | Time
+                                td
+                                    | Edited By
+                                td
+                                    |
+                        tbody
+                            each v in histories
+                                tr
+                                    td                               
+                                        input.checkbox(type='checkbox', id="chkCompare"+ v.id, value=v.id)  
+                                    td
+                                        label(for="chkCompare"+ v.id) !{v.updatedAt}
+                                    td
+                                        | !{ v.updatedBy.username}
+                                    td
+                                        a(href="/view/"+ v.id)  View 
+        br
+        .row  
+            button.btn.btn-primary#btnCompare() Compare
+        br
+        br
+        .row
+            p
+                a(href="/") Home 
+                    |  |  
+                a(href="/edit/" + result.id ) Edit
 
-  h1 histories of !{result.title}
-
-  if histories
-    ul.list-group
-      each v in histories
-        li.list-group-item
-          input(type='checkbox', id="chkCompare"+ v.id, value=v.id) 
-          |  
-          label(for="chkCompare"+ v.id) !{v.updatedAt}
-          |  |  
-          label.label.label-default edited by !{v.updatedBy.username}
-          |  |  
-          a(href="/view/"+ v.id) View 
-          
-  button.btn.btn-primary#btnCompare() Compare
-  br
-  br
-  a(href="/") << | back to home
-
-  script.
-    $(document).ready(function(){
-        $('#btnCompare').on('click', function(){
-            var checkedValues = $('input:checked');
-            var url = "/compare/{0}/vs/{1}";
-            if(checkedValues.length === 1 ){
-                url = url.replace("{0}", checkedValues[0].value)
-                url = url.replace("{1}", checkedValues[1].value)
-            }
-            else if(checkedValues.length === 2 ){
-                url = url.replace("{0}", checkedValues[0].value)
-                url = url.replace("{1}", checkedValues[1].value)
-            } else {
-                alert("vui long chon it nhat mot dong de so sanh");
-                return false;
-            }
-            window.location.href = url;
-        })
-    });
+    script.
+        $(document).ready(function(){
+            $('#btnCompare').on('click', function(){
+                var checkedValues = $('input:checked');
+                var url = "/compare/{0}/vs/{1}";
+                if(checkedValues.length === 1 ){
+                    url = url.replace("{0}", checkedValues[0].value)
+                    url = url.replace("{1}", checkedValues[1].value)
+                }
+                else if(checkedValues.length === 2 ){
+                    url = url.replace("{0}", checkedValues[0].value)
+                    url = url.replace("{1}", checkedValues[1].value)
+                } else {
+                    alert("vui long chon it nhat mot dong de so sanh");
+                    return false;
+                }
+                window.location.href = url;
+            })
+        });
