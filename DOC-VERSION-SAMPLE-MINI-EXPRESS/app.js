@@ -12,7 +12,9 @@ var routes = require('./routes/index');
 var docs = require('./routes/docs');
 var session = require('express-session');
 
+
 var app = express();
+var http = require('http').Server(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -72,7 +74,17 @@ app.use(function (err, req, res, next) {
 //    debug('Express server listening on port ' + server.address().port);
 //});
 
+var port = process.env.PORT || 1111;
 
-var server = app.listen(1111, function () {
+var server = app.listen(port, function () {
+    console.log('Express server listening on port ' + server.address().port);
     debug('Express server listening on port ' + server.address().port);
+});
+
+
+var io = require("socket.io").listen(server);
+io.on("connection", function (socket) {
+    socket.on('edit-word', function (content) {
+        io.emit('edit-word', content);
+    });
 });

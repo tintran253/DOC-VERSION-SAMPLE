@@ -16,7 +16,16 @@ block content
                 a(href="/") Home    
                 | | 
                 a(href="/history/"+ result.id) View History 
+    //CKEDITOR.instances.content.on('change', function() {});
     script.
-        $(document).on('ready', function(){
-            CKEDITOR.replace('content',{ customConfig: '/scripts/ckeditor_config.js'});
-        })
+        $(function () {
+            CKEDITOR.replace('content',{ customConfig: '/scripts/ckeditor_config.js'});    
+            
+            $('form').submit(function(){
+                socket.emit('edit-word', CKEDITOR.instances.content.getData());                     
+            });
+            socket.on('edit-word', function(content){              
+              CKEDITOR.instances.content.setData(content);
+            });
+        });
+    

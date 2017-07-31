@@ -34,5 +34,6 @@ CKEDITOR.editorConfig = function( config ) {
 	// Simplify the dialog windows.
     config.removeDialogTabs = 'image:advanced;link:advanced';
     config.extraPlugins = 'pastefromword';
+    config.extraPlugins = 'autosave';
     config.height = 600;
 };
