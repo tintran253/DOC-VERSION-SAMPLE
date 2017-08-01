@@ -18,6 +18,7 @@
     "prettydiff": "^99.0.1",
     "q": "^1.5.0",
     "sequelize": "^4.4.2",
-    "typing": "^0.1.9"
+    "typing": "^0.1.9",
+    "wkhtmltopdf": "^0.3.4"
   }
 }

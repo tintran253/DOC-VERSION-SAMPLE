@@ -7,7 +7,8 @@ var http = require('http'),
     os = require('os'),
     fs = require('fs');
 var Busboy = require('busboy');
-require("colors");
+var wkhtmltopdf = require('wkhtmltopdf');
+
 var mammoth = require("mammoth");
 var Q = require("q");
 var diff = require("diff");
@@ -88,6 +89,17 @@ router.post('/compose',
             res.redirect('/');
         });
     });
-
-
+router.get('/exportpdf/:id', function (req, res) {
+    var id = req.params.id;
+    DocsVersion.findAll({
+        where: { docsId: id },
+        order: [
+            ['updatedAt', 'DESC']
+        ],
+        limit: 1
+    }).then(function (result) {
+        wkhtmltopdf(result[0].content)
+            .pipe(res);    
+    })    
+});
 module.exports = router;

@@ -37,25 +37,25 @@ router.get('/edit/:id',
         });
     });
 
-router.post('/edit',
+router.post('/edit', 
     requestHandler,
     passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
     function (req, res) {
-        var id = req.body.id;
-        const testFolder = './upload/';
-        var result = [];
+    var id = req.body.id;
+    const testFolder = './upload/';
+    var result = [];
 
-        return DocsVersion.create({
-            docsId: id,
-            updatedById: req.user.id,
-            content: req.body.content
-        }).then((rs) => {
-            Docs.findById(id).then(function (result) {
-                result.content = rs.content;
-                res.render('docs/edit', { title: 'edit', result: result });
-            });
+    return DocsVersion.create({
+        docsId: id,
+        updatedById: req.user.id,
+        content: req.body.content
+    }).then((rs) => {
+        Docs.findById(id).then(function (result) {
+            result.content = rs.content;
+            res.render('docs/edit', { title: 'edit', result: result });
         });
     });
+});
 
 router.get('/login', function (req, res) {
     res.render('login')

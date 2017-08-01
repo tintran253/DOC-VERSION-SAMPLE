@@ -8,7 +8,6 @@ html
     link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/main.css')
     script(src="/scripts/ckeditor/ckeditor.js")
-    //script(src="https://cdn.socket.io/socket.io-1.2.0.js")
     
     script.
         var socket = io();
@@ -17,22 +16,19 @@ html
       .container
         .row
           .col-sm-8.py-4
-            h4.text-white About
+            h4.text-white Release
             p.text-muted
-              | Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.
+              | Version 0.1
           .col-sm-4.py-4
-            h4.text-white Contact
+            h4.text-white Features
             ul.list-unstyled
               li
-                a.text-white(href='#') Follow on Twitter
-              li
-                a.text-white(href='#') Like on Facebook
-              li
-                a.text-white(href='#') Email me
+                a.text-white(href='#') User Management
+                
     .navbar.navbar-inverse.bg-inverse
       .container.d-flex.justify-content-between
         a.navbar-brand(href='/') DOC-VERSIONING
-        //button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarHeader', aria-controls='navbarHeader', aria-expanded='false', aria-label='Toggle navigation')
+        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarHeader', aria-controls='navbarHeader', aria-expanded='false', aria-label='Toggle navigation')
           span.navbar-toggler-icon
 
     block header
