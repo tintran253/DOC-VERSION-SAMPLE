@@ -282,6 +282,9 @@
     <Compile Include="src\common\passport.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\common\requestHandler.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\models\docs-version.js">
       <SubType>Code</SubType>
     </Compile>
@@ -292,6 +295,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\repository\db.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\service\DocumentService.js">
       <SubType>Code</SubType>
     </Compile>
     <Content Include="package.json" />
@@ -607,6 +613,7 @@
     <Folder Include="src\models\" />
     <Folder Include="src\config\" />
     <Folder Include="src\common\" />
+    <Folder Include="src\service\" />
     <Folder Include="src\repository\" />
     <Folder Include="upload\" />
     <Folder Include="public\" />

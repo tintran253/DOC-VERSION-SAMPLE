@@ -2,24 +2,24 @@
 block header
 block content
     .container
-      h2.text-center.jumbotron-heading
-        | Register
-      .row        
-        .form-group.col-md-4.offset-md-4
-          label(for='username') Username*:
-          input.form-control(type='text' name='username' id='username')
-      .row
-        .form-group.col-md-4.offset-md-4
-          label(for='password') Password*:
-          input.form-control(type='password' name='password' id='password')   
-      .row
-        .form-group.col-md-4.offset-md-4
-          label(for='phone') Phone:
-          input.form-control(type='number' name='phone' id='phone')
-      .row
-        .form-group.col-md-4.offset-md-4
-          label(for='email') Email:
-          input.form-control(type='email' name='email' id='email')
-      .row
-        .col-md-4.offset-md-4
-          button.btn.btn-primary(type='submit') Submit  
+        h2.text-center.jumbotron-heading Register
+        form(method='POST' action='/register')
+            .row        
+                .form-group.col-md-4.offset-md-4
+                    label(for='username') Username*:
+                    input.form-control(type='text' name='username' id='username')
+            .row
+                .form-group.col-md-4.offset-md-4
+                    label(for='password') Password*:
+                    input.form-control(type='password' name='password' id='password')   
+            .row
+                .form-group.col-md-4.offset-md-4
+                    label(for='phone') Phone:
+                    input.form-control(type='number' name='phone' id='phone')
+            .row
+                .form-group.col-md-4.offset-md-4
+                    label(for='email') Email:
+                    input.form-control(type='email' name='email' id='email')
+            .row
+                .col-md-4.offset-md-4
+                    button.btn.btn-primary(type='submit') Submit  

@@ -7,12 +7,17 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
+require("./src/common/passport")(passport);
+
 var flash = require('connect-flash');
 var routes = require('./routes/index');
 var docs = require('./routes/docs');
 var session = require('express-session');
-
-
+//var models = require("./src/models");
+var User = require("./src/models/user");
+var Docs = require("./src/models/docs");
+var DocsVersion = require("./src/models/docs-version");
+var Q = require("q");
 var app = express();
 var http = require('http').Server(app);
 
@@ -23,16 +28,16 @@ app.set('view engine', 'pug');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
-app.use(bodyParser({ limit: '50mb' }));
+app.use(bodyParser());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false, limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use(session({ secret: 'xxx', name: 'ss_xxx', saveUninitialized: false, resave: false }));
+app.use(session({ secret: 'xxx', name: 'ss_xxx', saveUninitialized: true, resave: true }));
 
 
 app.use('/', routes);
@@ -76,15 +81,17 @@ app.use(function (err, req, res, next) {
 
 var port = process.env.PORT || 1111;
 
-var server = app.listen(port, function () {
-    console.log('Express server listening on port ' + server.address().port);
-    debug('Express server listening on port ' + server.address().port);
-});
+Q.all([User.sync(), Docs.sync(), DocsVersion.sync()]).spread(function () {
 
-
-var io = require("socket.io").listen(server);
-io.on("connection", function (socket) {
-    socket.on('edit-word', function (content) {
-        io.emit('edit-word', content);
+    var server = app.listen(port, function () {
+        console.log('Express server listening on port ' + server.address().port);
+        debug('Express server listening on port ' + server.address().port);
     });
-});
+
+    var io = require("socket.io").listen(server);
+    io.on("connection", function (socket) {
+        socket.on('edit-word', function (content) {
+            io.emit('edit-word', content);
+        });
+    });
+})

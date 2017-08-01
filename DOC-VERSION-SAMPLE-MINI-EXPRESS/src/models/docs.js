@@ -1,7 +1,7 @@
 ﻿
 var Sequelize = require("sequelize");
 var sequelize = require("../repository/db");
-
+var User = require("../models/user");
 const Docs = sequelize.define('docs', {
     title :{
         type: Sequelize.STRING
@@ -13,5 +13,5 @@ const Docs = sequelize.define('docs', {
         type: Sequelize.TEXT
     },
 });
-
+Docs.belongsTo(User, { as: 'createdBy' });
 module.exports = Docs;
