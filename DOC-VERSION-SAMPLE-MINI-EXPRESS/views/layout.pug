@@ -1,18 +1,93 @@
 ﻿doctype html
 html
-  head
-    title= title
-    //script(src='/scripts/jquery-3.1.1.slim.min.js')
-    script(src="/socket.io-client/dist/socket.io.js")
-    script(src='/scripts/jquery.js')
-    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/main.css')
-    script(src="/scripts/ckeditor/ckeditor.js")
-    
-    script.
-        var socket = io();
-  body        
-    #navbarHeader.collapse.bg-inverse
+    head
+        title= title
+        <!-- Required meta tags -->
+        meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+        //script(src='/scripts/jquery-3.1.1.slim.min.js')
+        script(src="/socket.io-client/dist/socket.io.js")
+        script(src='/scripts/jquery.js')
+        link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+        link(rel='stylesheet', href='/stylesheets/main.css')
+        link(rel='stylesheet', href='/stylesheets/font-awesome.min.css')
+        script(src="/scripts/ckeditor/ckeditor.js")
+        script.
+            var socket = io();
+    body            
+        nav.navbar.navbar-inverse.bg-inverse.navbar-toggleable-md
+            .container
+                button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarsExampleContainer', aria-controls='navbarsExampleContainer', aria-expanded='false', aria-label='Toggle navigation')
+                    span.navbar-toggler-icon
+                a.navbar-brand(href='/') DOC-VERSIONING
+                #navbarsExampleContainer.collapse.navbar-collapse
+                    ul.navbar-nav.mr-auto
+                        li.nav-item
+                            a.nav-link(href='/')
+                                i.fa.fa-home 
+                                |  Home 
+                                span.sr-only (current)
+                        //li.nav-item
+                            a.nav-link(href='#') Link
+                        //li.nav-item
+                            a.nav-link.disabled(href='#') Disabled
+                        li.nav-item.dropdown
+                            a#dropdown02.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                                i.fa.fa-user 
+                                if (user && user.username)
+                                    |  !{user.username.toUpperCase()}
+                                else
+                                    |  Account
+                            .dropdown-menu(aria-labelledby='dropdown02')
+                                if user
+                                    a.dropdown-item(href='/logout') 
+                                        i.fa.fa-sign-out
+                                        |  Logout
+                                else
+                                    a.dropdown-item(href='/login') 
+                                        i.fa.fa-sign-in
+                                        |  Login
+                                    a.dropdown-item(href='/register') 
+                                        i.fa.fa-user-plus
+                                        |  Register
+                //form.form-inline.my-2.my-md-0
+                    input.form-control.mr-sm-2(type='text', placeholder='Search')
+                    button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+
+    //nav.navbar.navbar-toggleable-md.navbar-inverse.fixed-top.bg-inverse
+      .container
+        button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarsExampleDefault', aria-controls='navbarsExampleDefault', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+        a.navbar-brand(href='#') DOC-VERSIONING
+        #navbarsExampleDefault.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+            li.nav-item.active
+            a.nav-link(href='#')
+                | Home 
+                span.sr-only (current)
+            li.nav-item
+            a.nav-link(href='#') Link
+            li.nav-item
+            a.nav-link.disabled(href='#') Disabled
+            li.nav-item.dropdown
+            a#dropdown01.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                i.fa.fa-user 
+                if user      
+                    
+            .dropdown-menu(aria-labelledby='dropdown01')
+                a.dropdown-item(href='#') Action
+                a.dropdown-item(href='#') Another action
+                a.dropdown-item(href='#') Something else here
+          //li.nav-item.dropdown
+            a#dropdown01.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Dropdown
+            .dropdown-menu(aria-labelledby='dropdown01')
+              a.dropdown-item(href='#') Action
+              a.dropdown-item(href='#') Another action
+              a.dropdown-item(href='#') Something else here
+        //form.form-inline.my-2.my-lg-0
+          input.form-control.mr-sm-2(type='text', placeholder='Search')
+          button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+    //#navbarHeader.collapse.bg-inverse
       .container
         .row
           .col-sm-8.py-4
@@ -25,26 +100,28 @@ html
               li
                 a.text-white(href='#') User Management
                 
-    .navbar.navbar-inverse.bg-inverse
+    //.navbar.navbar-inverse.bg-inverse
       .container.d-flex.justify-content-between
-        a.navbar-brand(href='/') DOC-VERSIONING
+        a.navbar-brand(href='/') DOC-VERSIONING     
+        .collapse.navbar-collapse
+          ul.navbar-nav
+            li.nav-item
+              i.fa.fa-search
+                |a
         button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarHeader', aria-controls='navbarHeader', aria-expanded='false', aria-label='Toggle navigation')
           span.navbar-toggler-icon
 
     block header
     .album.text-muted
-      .container
-        block content
-
-    if user
-      a(href="/logout") !{user.username} | Logout
+        .container
+            block content
     script(src="/scripts/tether.min.js")
     script(src="/scripts/bootstrap.min.js")
     script(src="/scripts/holder.min.js")
 
     script.
-      $(function () {
-        Holder.addTheme("thumb", { background: "#55595c", foreground: "#eceeef", text: "Thumbnail" });
-      });
+        $(function () {
+            Holder.addTheme("thumb", { background: "#55595c", foreground: "#eceeef", text: "Thumbnail" });
+        });
 
     

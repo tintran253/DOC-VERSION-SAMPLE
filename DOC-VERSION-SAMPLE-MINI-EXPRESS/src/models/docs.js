@@ -1,8 +1,4 @@
 ﻿
-//var Sequelize = require("sequelize");
-//var sequelize = require("../repository/db");
-//var User = require("../models/users");
-
 module.exports = function (sequelize, DataTypes) {
     var docs = sequelize.define('docs', {
         title: {
@@ -20,5 +16,3 @@ module.exports = function (sequelize, DataTypes) {
     }
     return docs;
 };
-
-//module.exports = Docs;

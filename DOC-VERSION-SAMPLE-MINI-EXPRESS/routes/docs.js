@@ -14,12 +14,14 @@ var Q = require("q");
 var diff = require("diff");
 var fs = require('fs');
 var requestHandler = require("../src/common/requestHandler");
+var responseHandler = require("../src/common/responseHandler");
 
 var models = require("../src/models");
 
 router.get('/',
     requestHandler,
     passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
+    responseHandler,
     function (req, res) {
         res.render('upload', { title: 'word docs' });
     });
@@ -27,6 +29,7 @@ router.get('/',
 router.post('/',
     requestHandler,
     passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
+    responseHandler,
     function (req, res) {
         var busboy = new Busboy({ headers: req.headers });
         var fileName = "";
@@ -65,6 +68,7 @@ router.post('/',
 router.get('/compose',
     requestHandler,
     passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
+    responseHandler,
     function (req, res) {
         res.render('docs/compose', { title: 'compose docs' });
     });
@@ -72,6 +76,7 @@ router.get('/compose',
 router.post('/compose',
     requestHandler,
     passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
+    responseHandler,
     function (req, res) {
         return models.docs.create({
             title: req.body.title,

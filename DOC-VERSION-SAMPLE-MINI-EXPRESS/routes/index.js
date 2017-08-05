@@ -2,15 +2,14 @@
 var express = require('express');
 var router = express.Router();
 var passport = require("passport");
-var Docs = require("../src/models/docs");
-var Users = require("../src/models/users");
-var DocsVersion = require("../src/models/docsVersions");
 var models = require("../src/models");
 var Q = require("q");
 var diff = require("diff");
 var HtmlDiffer = require('html-differ').HtmlDiffer;
 
 var requestHandler = require("../src/common/requestHandler");
+var responseHandler = require("../src/common/responseHandler");
+
 router.get('/', function (req, res) {
     models.docs.findAll().then(function (result) {
         res.render('index', { title: 'DOCV', result: result, user: req.session && req.session.passport && req.session.passport.user ? req.session.passport.user : null });
@@ -20,6 +19,7 @@ router.get('/', function (req, res) {
 router.get('/edit/:id',
     requestHandler,
     passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
+    responseHandler,
     function (req, res) {
         var id = req.params.id;
         var result = [];
@@ -41,6 +41,7 @@ router.get('/edit/:id',
 router.post('/edit', 
     requestHandler,
     passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
+    responseHandler,
     function (req, res) {
     var id = req.body.id;
     const testFolder = './upload/';
@@ -68,7 +69,7 @@ router.get('/logout', function (req, res) {
     });
 });
 
-router.post('/login', passport.authenticate('local'), function (req, res) {
+router.post('/login', passport.authenticate('local'), responseHandler, function (req, res) {
     res.redirect("/");
 });
 
@@ -83,11 +84,12 @@ router.post('/register', function (req, res, next) {
     }).then(function () {
         next();
     })
-}, passport.authenticate('local', { successRedirect: '/' }));
+}, passport.authenticate('local', { successRedirect: '/' }), responseHandler);
 
 router.get('/history/:id',
     requestHandler,
     passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
+    responseHandler,
     function (req, res) {
         models.docs.findById(req.params.id)
             .then((docs) => {
@@ -106,6 +108,7 @@ router.get('/history/:id',
 router.get('/view/:id',
     requestHandler,
     passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
+    responseHandler,
     function (req, res) {
         return models.docsVersions.findById(req.params.id)
             .then((docsVersion) => {
@@ -116,6 +119,7 @@ router.get('/view/:id',
 router.get('/compare/:id/vs/:id2',
     requestHandler,
     passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
+    responseHandler,
     function (req, res) {
         return Q.all([models.docsVersions.findById(req.params.id), models.docsVersions.findById(req.params.id2)])
             .spread(function (result1, result2) {

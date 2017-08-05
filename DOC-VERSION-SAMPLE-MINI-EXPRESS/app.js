@@ -79,10 +79,6 @@ app.use(function (err, req, res, next) {
 //    debug('Express server listening on port ' + server.address().port);
 //});
 
-//Q.all([User.sync(), Docs.sync(), DocsVersion.sync()])
-
-
-    //.then(Q.all([User.sync(), Docs.sync(), DocsVersion.sync()]));
 models.sequelize.sync().then(function () {
 
     var port = process.env.PORT || 1111;

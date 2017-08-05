@@ -9,8 +9,14 @@ module.exports = function (sequelize, DataTypes) {
         },
         password: {
             type: DataTypes.STRING
+        },
+        sides: {
+            type: DataTypes.ARRAY(DataTypes.STRING)
         }
     });
+    //users.associate = function (models) {
+    //    users.hasMany(models.sides, { as: 'sides' });
+    //}
     return users;
 };
 //User.hasMany(DocsVersion);

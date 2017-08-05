@@ -285,6 +285,9 @@
     <Compile Include="src\common\requestHandler.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\common\responseHandler.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\models\docsVersions.js">
       <SubType>Code</SubType>
     </Compile>
@@ -292,6 +295,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\models\index.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\models\sides.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\models\users.js">
@@ -304,6 +310,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Content Include="package.json" />
+    <Content Include="public\fonts\fontawesome-webfont.eot" />
+    <Content Include="public\fonts\fontawesome-webfont.svg" />
+    <Content Include="public\fonts\fontawesome-webfont.ttf" />
+    <Content Include="public\fonts\fontawesome-webfont.woff" />
+    <Content Include="public\fonts\fontawesome-webfont.woff2" />
+    <Content Include="public\fonts\FontAwesome.otf" />
     <Content Include="public\images\version.png" />
     <Content Include="public\scripts\ckeditor\CHANGES.md" />
     <Content Include="public\scripts\ckeditor\contents.css" />
@@ -481,6 +493,8 @@
     <Content Include="public\scripts\ckeditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="public\scripts\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="public\stylesheets\bootstrap.min.css" />
+    <Content Include="public\stylesheets\font-awesome.css" />
+    <Content Include="public\stylesheets\font-awesome.min.css" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
     <Content Include="views\auth\register.pug">
@@ -508,6 +522,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="public\fonts\" />
     <Folder Include="public\scripts\" />
     <Folder Include="public\scripts\ckeditor\" />
     <Folder Include="public\scripts\ckeditor\adapters\" />
