@@ -285,13 +285,16 @@
     <Compile Include="src\common\requestHandler.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="src\models\docs-version.js">
+    <Compile Include="src\models\docsVersions.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\models\docs.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="src\models\user.js">
+    <Compile Include="src\models\index.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\models\users.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\repository\db.js">

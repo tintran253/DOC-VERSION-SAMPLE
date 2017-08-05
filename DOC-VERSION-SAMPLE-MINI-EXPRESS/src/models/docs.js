@@ -1,17 +1,24 @@
 ﻿
-var Sequelize = require("sequelize");
-var sequelize = require("../repository/db");
-var User = require("../models/user");
-const Docs = sequelize.define('docs', {
-    title :{
-        type: Sequelize.STRING
-    },
-    url: {
-        type: Sequelize.STRING
-    },
-    content: {
-        type: Sequelize.TEXT
-    },
-});
-Docs.belongsTo(User, { as: 'createdBy' });
-module.exports = Docs;
+//var Sequelize = require("sequelize");
+//var sequelize = require("../repository/db");
+//var User = require("../models/users");
+
+module.exports = function (sequelize, DataTypes) {
+    var docs = sequelize.define('docs', {
+        title: {
+            type: DataTypes.STRING
+        },
+        url: {
+            type: DataTypes.STRING
+        },
+        content: {
+            type: DataTypes.TEXT
+        }        
+    });
+    docs.associate = function (models) {
+        docs.belongsTo(models.users, { as: 'createdBy' });
+    }
+    return docs;
+};
+
+//module.exports = Docs;

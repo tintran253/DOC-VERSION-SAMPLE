@@ -13,10 +13,10 @@ var flash = require('connect-flash');
 var routes = require('./routes/index');
 var docs = require('./routes/docs');
 var session = require('express-session');
-//var models = require("./src/models");
-var User = require("./src/models/user");
+var models = require("./src/models");
+var User = require("./src/models/users");
 var Docs = require("./src/models/docs");
-var DocsVersion = require("./src/models/docs-version");
+var DocsVersion = require("./src/models/docsVersions");
 var Q = require("q");
 var app = express();
 var http = require('http').Server(app);
@@ -79,10 +79,13 @@ app.use(function (err, req, res, next) {
 //    debug('Express server listening on port ' + server.address().port);
 //});
 
-var port = process.env.PORT || 1111;
+//Q.all([User.sync(), Docs.sync(), DocsVersion.sync()])
 
-Q.all([User.sync(), Docs.sync(), DocsVersion.sync()]).spread(function () {
 
+    //.then(Q.all([User.sync(), Docs.sync(), DocsVersion.sync()]));
+models.sequelize.sync().then(function () {
+
+    var port = process.env.PORT || 1111;
     var server = app.listen(port, function () {
         console.log('Express server listening on port ' + server.address().port);
         debug('Express server listening on port ' + server.address().port);
@@ -94,4 +97,5 @@ Q.all([User.sync(), Docs.sync(), DocsVersion.sync()]).spread(function () {
             io.emit('edit-word', content);
         });
     });
-})
+
+});

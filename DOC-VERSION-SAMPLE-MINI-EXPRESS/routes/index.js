@@ -3,15 +3,16 @@ var express = require('express');
 var router = express.Router();
 var passport = require("passport");
 var Docs = require("../src/models/docs");
-var Users = require("../src/models/user");
-var DocsVersion = require("../src/models/docs-version");
+var Users = require("../src/models/users");
+var DocsVersion = require("../src/models/docsVersions");
+var models = require("../src/models");
 var Q = require("q");
 var diff = require("diff");
 var HtmlDiffer = require('html-differ').HtmlDiffer;
 
 var requestHandler = require("../src/common/requestHandler");
 router.get('/', function (req, res) {
-    Docs.findAll().then(function (result) {
+    models.docs.findAll().then(function (result) {
         res.render('index', { title: 'DOCV', result: result, user: req.session && req.session.passport && req.session.passport.user ? req.session.passport.user : null });
     })
 });
@@ -23,8 +24,8 @@ router.get('/edit/:id',
         var id = req.params.id;
         var result = [];
 
-        Docs.findById(id).then(function (result) {
-            DocsVersion.findAll({
+        models.docs.findById(id).then(function (result) {
+            models.docsVersions.findAll({
                 where: { docsId: id },
                 order: [
                     ['updatedAt', 'DESC']
@@ -45,12 +46,12 @@ router.post('/edit',
     const testFolder = './upload/';
     var result = [];
 
-    return DocsVersion.create({
+    return models.docsVersions.create({
         docsId: id,
         updatedById: req.user.id,
         content: req.body.content
     }).then((rs) => {
-        Docs.findById(id).then(function (result) {
+        models.docs.findById(id).then(function (result) {
             result.content = rs.content;
             res.render('docs/edit', { title: 'edit', result: result });
         });
@@ -76,7 +77,7 @@ router.get('/register', function (req, res) {
 });
 
 router.post('/register', function (req, res, next) {
-    return Users.create({
+    return models.users.create({
         username: req.body.username,
         password: req.body.password
     }).then(function () {
@@ -88,9 +89,9 @@ router.get('/history/:id',
     requestHandler,
     passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
     function (req, res) {
-        Docs.findById(req.params.id)
+        models.docs.findById(req.params.id)
             .then((docs) => {
-                return DocsVersion.findAll({
+                return models.docsVersions.findAll({
                     where: { docsId: req.params.id },
                     order: [
                         ['updatedAt', 'DESC']
@@ -106,7 +107,7 @@ router.get('/view/:id',
     requestHandler,
     passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
     function (req, res) {
-        return DocsVersion.findById(req.params.id)
+        return models.docsVersions.findById(req.params.id)
             .then((docsVersion) => {
                 res.render("docs/view", { result: docsVersion });
             });
@@ -116,7 +117,7 @@ router.get('/compare/:id/vs/:id2',
     requestHandler,
     passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
     function (req, res) {
-        return Q.all([DocsVersion.findById(req.params.id), DocsVersion.findById(req.params.id2)])
+        return Q.all([models.docsVersions.findById(req.params.id), models.docsVersions.findById(req.params.id2)])
             .spread(function (result1, result2) {
 
                 var options = {

@@ -15,9 +15,7 @@ var diff = require("diff");
 var fs = require('fs');
 var requestHandler = require("../src/common/requestHandler");
 
-var User = require("../src/models/user");
-var Docs = require("../src/models/docs");
-var DocsVersion = require("../src/models/docs-version");
+var models = require("../src/models");
 
 router.get('/',
     requestHandler,
@@ -45,12 +43,12 @@ router.post('/',
                 ]
             };
             Q.all([mammoth.convertToHtml({ path: fullPath }, options)]).spread(function (res1) {
-                return Docs.create({
+                return models.docs.create({
                     title: fileName,
                     url: fullPath,
                     content: res1.value
                 }).then(function (createdDoc) {
-                    return DocsVersion.create({
+                    return models.docsVersions.create({
                         content: createdDoc.content,
                         docsId: createdDoc.id,
                         updatedById: req.user.id
@@ -75,12 +73,12 @@ router.post('/compose',
     requestHandler,
     passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
     function (req, res) {
-        return Docs.create({
+        return models.docs.create({
             title: req.body.title,
             url: "",
             content: req.body.content
         }).then(function (createdDoc) {
-            return DocsVersion.create({
+            return models.docsVersions.create({
                 content: createdDoc.content,
                 docsId: createdDoc.id,
                 updatedById: req.user.id
@@ -91,7 +89,7 @@ router.post('/compose',
     });
 router.get('/exportpdf/:id', function (req, res) {
     var id = req.params.id;
-    DocsVersion.findAll({
+    models.docsVersions.findAll({
         where: { docsId: id },
         order: [
             ['updatedAt', 'DESC']
