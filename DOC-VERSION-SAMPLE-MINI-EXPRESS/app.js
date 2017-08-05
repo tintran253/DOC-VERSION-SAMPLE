@@ -79,7 +79,7 @@ app.use(function (err, req, res, next) {
 //    debug('Express server listening on port ' + server.address().port);
 //});
 
-models.sequelize.sync().then(function () {
+models.sequelize.sync({force:true}).then(function () {
 
     var port = process.env.PORT || 1111;
     var server = app.listen(port, function () {

@@ -1,7 +1,7 @@
 ﻿
 //var Sequelize = require("sequelize");
 //var sequelize = require("../repository/db");
-//var DocsVersion = require("../models/docsVersions")
+//var models = require("../models")
 module.exports = function (sequelize, DataTypes) {
     var users = sequelize.define('users', {
         username: {
@@ -12,11 +12,16 @@ module.exports = function (sequelize, DataTypes) {
         },
         sides: {
             type: DataTypes.ARRAY(DataTypes.STRING)
-        }
+        },
+        permissions: {
+            type: DataTypes.ARRAY(DataTypes.JSON)
+        },
+        root: DataTypes.BOOLEAN
     });
-    //users.associate = function (models) {
-    //    users.hasMany(models.sides, { as: 'sides' });
-    //}
+    users.associate = function (models) {
+        //const users.permissions = users.hasMany(models.roles);
+        //users.permissions.hasMany(models.sides);
+    }
     return users;
 };
 //User.hasMany(DocsVersion);

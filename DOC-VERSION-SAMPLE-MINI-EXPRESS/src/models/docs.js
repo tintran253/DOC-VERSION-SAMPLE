@@ -13,6 +13,7 @@ module.exports = function (sequelize, DataTypes) {
     });
     docs.associate = function (models) {
         docs.belongsTo(models.users, { as: 'createdBy' });
+        docs.hasMany(models.docsVersions);
     }
     return docs;
 };

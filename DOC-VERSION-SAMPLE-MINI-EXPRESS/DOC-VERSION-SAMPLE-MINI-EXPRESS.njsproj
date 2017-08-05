@@ -297,6 +297,7 @@
     <Compile Include="src\models\index.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="src\models\roles.js" />
     <Compile Include="src\models\sides.js">
       <SubType>Code</SubType>
     </Compile>

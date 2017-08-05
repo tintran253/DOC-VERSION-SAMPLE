@@ -1,15 +1,15 @@
 ﻿
 module.exports = function (sequelize, DataTypes) {
-    var sides = sequelize.define('sides', {
+    var roles = sequelize.define('roles', {
         name: {
             type: DataTypes.STRING
         },
         permissions: {
-            type: DataTypes.ARRAY(sequelize.ARRAY())
+            type: DataTypes.ARRAY(DataTypes.JSON)
         }
     });
     //sides.associate = function (models) {
 
     //}
-    return sides;
+    return roles;
 };
