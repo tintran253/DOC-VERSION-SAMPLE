@@ -1,31 +1,59 @@
 ﻿extends ../layout
 
 block content
-    .container
-        .row 
+    .row
+        .col-md-12
             h1
                 | Management
-        .row
+            hr
+    br
+    .row.justify-content-between
+        .col-md-2
+            a.btn.btn-secondary(href="/users/register")
+                i.fa.fa-plus
+                //|  Register
+        .col-md-3
+            form(method='GET' action='/users/')
+                .input-group
+                    input.form-control(type="text",id="q",name="q",placeholder="Search by username")
+                    span.input-group-btn
+                        button.btn.btn-secondary(type="submit")
+                            i.fa.fa-search                                
+    br
+    .row
+        .col-md-12
             .table-responsive
                 table.table.table-striped
                     thead
                         tr
-                            td
-                                |
-                            td
-                                | Time
-                            td
-                                | Edited By
-                            td
-                                |
+                            th
+                                | #
+                            th
+                                | Username
+                            th
+                                | Email
+                            th
+                                | Phone
+                            th
+                                | Sides
+                            th
+                                | Root
+                            th
+                                | 
                     tbody
-                        each v in histories
+                        each user in users
                             tr
+                                td
+
                                 td                               
-                                    input.checkbox(type='checkbox', id="chkCompare"+ v.id, value=v.id)  
+                                    | !{ user.username}
                                 td
-                                    label(for="chkCompare"+ v.id) !{v.updatedAt}
+                                    | !{ user.email}
                                 td
-                                    | !{ v.updatedBy.username}
+                                    | !{ user.phone}
                                 td
-                                    a(href="/view/"+ v.id)  View 
+                                    | !{ user.sides}
+                                td
+                                    | !{ user.isRoot}                                
+                                td
+                                    a(href="/users/"+ user.id + "/permissions")  Edit Permission 

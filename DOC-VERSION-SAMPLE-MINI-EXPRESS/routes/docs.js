@@ -20,7 +20,7 @@ var models = require("../src/models");
 
 router.get('/',
     requestHandler,
-    passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
+    passport.authenticate('auth', { session: false, failureRedirect: '/users/login' }),
     responseHandler,
     function (req, res) {
         res.render('docs/upload', { title: 'word docs' });
@@ -28,7 +28,7 @@ router.get('/',
 
 router.post('/',
     requestHandler,
-    passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
+    passport.authenticate('auth', { session: false, failureRedirect: '/users/login' }),
     responseHandler,
     function (req, res) {
         var busboy = new Busboy({ headers: req.headers });
@@ -67,7 +67,7 @@ router.post('/',
 
 router.get('/compose',
     requestHandler,
-    passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
+    passport.authenticate('auth', { session: false, failureRedirect: '/users/login' }),
     responseHandler,
     function (req, res) {
         res.render('docs/compose', { title: 'compose docs' });
@@ -75,7 +75,7 @@ router.get('/compose',
 
 router.post('/compose',
     requestHandler,
-    passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
+    passport.authenticate('auth', { session: false, failureRedirect: '/users/login' }),
     responseHandler,
     function (req, res) {
         return models.docs.create({

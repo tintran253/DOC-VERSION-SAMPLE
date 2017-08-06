@@ -11,7 +11,7 @@ block header
       .container
         p#custom-margin
           //a.btn.btn-primary(href='/register') Register
-          a.btn.btn-primary(href='/login') Login  
+          a.btn.btn-primary(href='/users/login') Login  
 block content  
   if user
     .row#custom-margin
@@ -29,6 +29,7 @@ block content
               || 
               a(href="/history/"+ v.id) View History
               ||
-              a(href="/docs/exportpdf/"+ v.id) Export to PDF
+              a(href="/docs/exportpdf/"+ v.id)
+                |  Export to PDF
 
   

@@ -10,8 +10,7 @@ var passport = require('passport');
 require("./src/common/passport")(passport);
 
 var flash = require('connect-flash');
-var routes = require('./routes/index');
-var docs = require('./routes/docs');
+
 var session = require('express-session');
 var models = require("./src/models");
 var User = require("./src/models/users");
@@ -20,6 +19,11 @@ var DocsVersion = require("./src/models/docsVersions");
 var Q = require("q");
 var app = express();
 var http = require('http').Server(app);
+
+//routers
+var index = require('./routes/index');
+var docs = require('./routes/docs');
+var auth = require('./routes/auth');
 
 var rolesInit = require('./src/config/rolesInit');
 var userInit = require('./src/config/userInit');
@@ -43,8 +47,9 @@ app.use(flash());
 app.use(session({ secret: 'xxx', name: 'ss_xxx', saveUninitialized: true, resave: true }));
 
 
-app.use('/', routes);
+app.use('/', index);
 app.use('/docs', docs);
+app.use('/users', auth);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');

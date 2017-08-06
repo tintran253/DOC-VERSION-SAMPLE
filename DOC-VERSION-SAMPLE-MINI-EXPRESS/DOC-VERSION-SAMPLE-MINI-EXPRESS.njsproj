@@ -277,6 +277,10 @@
     <Compile Include="public\scripts\jquery-3.1.1.slim.min.js" />
     <Compile Include="public\scripts\jquery.js" />
     <Compile Include="public\scripts\tether.min.js" />
+    <Compile Include="routes\auth.js">
+      <SubType>Code</SubType>
+      <TestFramework>ExportRunner</TestFramework>
+    </Compile>
     <Compile Include="routes\index.js" />
     <Compile Include="routes\docs.js" />
     <Compile Include="src\common\const\authorize.js" />
@@ -507,6 +511,9 @@
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
     <Content Include="views\auth\register.pug">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\auth\view.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\docs\compose.pug">

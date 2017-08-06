@@ -18,7 +18,7 @@ router.get('/', responseHandler, function (req, res) {
 
 router.get('/edit/:id',
     requestHandler,
-    passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
+    passport.authenticate('auth', { session: false, failureRedirect: '/users/login' }),
     responseHandler,
     function (req, res) {
         var id = req.params.id;
@@ -59,41 +59,11 @@ router.post('/edit',
         });
     });
 
-router.get('/login', function (req, res) {
-    res.render('auth/login')
-});
 
-router.get('/logout', function (req, res) {
-    req.session.destroy(function (err) {
-        res.render('home/index');
-    });
-});
-
-router.post('/login', passport.authenticate('local'), responseHandler, function (req, res) {
-    res.redirect("/");
-});
-
-router.get('/register', requestHandler, passport.authenticate('auth'), responseHandler, function (req, res) {
-    models.sides.findAll().then(function (sides) {
-        res.render('auth/register', { sides: sides })
-    });
-});
-
-router.post('/register', requestHandler, passport.authenticate('auth'), responseHandler, function (req, res, next) {
-    return models.users.create({
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email,
-        phone: req.body.phone,
-        sides: req.body.sides
-    }).then(function () {
-        next();
-    })
-}, passport.authenticate('local', { successRedirect: '/' }), responseHandler);
 
 router.get('/history/:id',
     requestHandler,
-    passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
+    passport.authenticate('auth', { session: false, failureRedirect: '/users/login' }),
     responseHandler,
     function (req, res) {
         models.docs.findById(req.params.id)
@@ -112,7 +82,7 @@ router.get('/history/:id',
 
 router.get('/view/:id',
     requestHandler,
-    passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
+    passport.authenticate('auth', { session: false, failureRedirect: '/users/login' }),
     responseHandler,
     function (req, res) {
         return models.docsVersions.findById(req.params.id)
@@ -123,7 +93,7 @@ router.get('/view/:id',
 
 router.get('/compare/:id/vs/:id2',
     requestHandler,
-    passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
+    passport.authenticate('auth', { session: false, failureRedirect: '/users/login' }),
     responseHandler,
     function (req, res) {
         return Q.all([models.docsVersions.findById(req.params.id), models.docsVersions.findById(req.params.id2)])

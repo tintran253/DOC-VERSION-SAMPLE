@@ -37,10 +37,10 @@ html
                                     i.fa.fa-users
                                     |  Users
                                 .dropdown-menu(aria-labelledby='dropdown02')                                
-                                    a.dropdown-item(href='/register') 
+                                    a.dropdown-item(href='/users/register') 
                                         i.fa.fa-user-plus
                                         |  Register
-                                    a.dropdown-item(href='/register') 
+                                    a.dropdown-item(href='/users') 
                                         i.fa.fa-list-alt
                                         |  Management
                         li.nav-item.dropdown
@@ -52,11 +52,11 @@ html
                                     |  Account
                             .dropdown-menu(aria-labelledby='dropdown02')
                                 if user                                    
-                                    a.dropdown-item(href='/logout') 
+                                    a.dropdown-item(href='/users/logout') 
                                         i.fa.fa-sign-out
                                         |  Logout
                                 else
-                                    a.dropdown-item(href='/login') 
+                                    a.dropdown-item(href='/users/login') 
                                         i.fa.fa-sign-in
                                         |  Login
                                     
