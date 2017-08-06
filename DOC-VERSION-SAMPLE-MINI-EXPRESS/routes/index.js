@@ -10,9 +10,9 @@ var HtmlDiffer = require('html-differ').HtmlDiffer;
 var requestHandler = require("../src/common/requestHandler");
 var responseHandler = require("../src/common/responseHandler");
 
-router.get('/', function (req, res) {
+router.get('/', responseHandler, function (req, res) {
     models.docs.findAll().then(function (result) {
-        res.render('index', { title: 'DOCV', result: result, user: req.session && req.session.passport && req.session.passport.user ? req.session.passport.user : null });
+        res.render('home/index', { title: 'DOCV', result: result });
     })
 });
 
@@ -38,34 +38,34 @@ router.get('/edit/:id',
         });
     });
 
-router.post('/edit', 
+router.post('/edit',
     requestHandler,
     passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
     responseHandler,
     function (req, res) {
-    var id = req.body.id;
-    const testFolder = './upload/';
-    var result = [];
+        var id = req.body.id;
+        const testFolder = './upload/';
+        var result = [];
 
-    return models.docsVersions.create({
-        docsId: id,
-        updatedById: req.user.id,
-        content: req.body.content
-    }).then((rs) => {
-        models.docs.findById(id).then(function (result) {
-            result.content = rs.content;
-            res.render('docs/edit', { title: 'edit', result: result });
+        return models.docsVersions.create({
+            docsId: id,
+            updatedById: req.user.id,
+            content: req.body.content
+        }).then((rs) => {
+            models.docs.findById(id).then(function (result) {
+                result.content = rs.content;
+                res.render('docs/edit', { title: 'edit', result: result });
+            });
         });
     });
-});
 
 router.get('/login', function (req, res) {
-    res.render('login')
+    res.render('auth/login')
 });
 
 router.get('/logout', function (req, res) {
     req.session.destroy(function (err) {
-        res.render('index');
+        res.render('home/index');
     });
 });
 
@@ -73,14 +73,19 @@ router.post('/login', passport.authenticate('local'), responseHandler, function 
     res.redirect("/");
 });
 
-router.get('/register', function (req, res) {
-    res.render('auth/register')
+router.get('/register', requestHandler, passport.authenticate('auth'), responseHandler, function (req, res) {
+    models.sides.findAll().then(function (sides) {
+        res.render('auth/register', { sides: sides })
+    });
 });
 
-router.post('/register', function (req, res, next) {
+router.post('/register', requestHandler, passport.authenticate('auth'), responseHandler, function (req, res, next) {
     return models.users.create({
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        email: req.body.email,
+        phone: req.body.phone,
+        sides: req.body.sides
     }).then(function () {
         next();
     })

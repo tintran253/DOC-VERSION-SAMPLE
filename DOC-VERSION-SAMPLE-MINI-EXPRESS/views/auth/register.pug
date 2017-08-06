@@ -19,7 +19,20 @@ block content
             .row
                 .form-group.col-md-4.offset-md-4
                     label(for='email') Email:
-                    input.form-control(type='email' name='email' id='email')
+                    input.form-control(type='email' name='email' id='email')        
             .row
                 .col-md-4.offset-md-4
+                    | Sides
+                    hr
+            
+            each side in sides                
+                .row
+                    .form-group.col-md-4.offset-md-4
+                        label.custom-control.custom-checkbox
+                            input.custom-control-input(type='checkbox' name='sides' id='id_' + side.shortName value=''+ side.shortName)
+                            span.custom-control-indicator
+                            span.custom-control-description !{side.name} (!{side.shortName})             
+            .row
+                .col-md-4.offset-md-4
+                    hr
                     button.btn.btn-primary(type='submit') Submit  

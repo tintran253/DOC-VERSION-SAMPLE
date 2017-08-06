@@ -1,15 +1,16 @@
-﻿const  { SIDE, FEATURES, ROLE, PERMISSIONS } =require( '../common/const/authorize');
+﻿const  { SIDES, FEATURES, ROLES, PERMISSIONS } =require( '../common/const/authorize');
 
 module.exports = function (models) {
-    return models.users.findOne({ where: { username: ROLE.ROOT } }).then(function (res) {
+    return models.users.findOne({ where: { username: ROLES.ROOT } }).then(function (res) {
         if (res === null) {
             return models.users.create({
-                username: ROLE.ROOT,
-                password: ROLE.ROOT,
+                username: ROLES.ROOT,
+                password: ROLES.ROOT,
+                sides: [SIDES.ALL],
                 permissions: [
                     {
-                        side: SIDE.ALL,
-                        name: ROLE.ROOT,
+                        side: SIDES.ALL,
+                        name: ROLES.ROOT,
                         permissions: [{
                             feature: FEATURES.DOCUMENT,
                             permissions: [
@@ -30,7 +31,9 @@ module.exports = function (models) {
                         ]
                     }
                 ],
-                isRoot: true
+                isRoot: true,
+                isSystem: true,
+                active: true
             });
         }
         return 1;

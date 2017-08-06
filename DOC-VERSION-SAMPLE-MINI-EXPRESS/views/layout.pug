@@ -6,13 +6,13 @@ html
         meta(charset="utf-8")
         meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
         //script(src='/scripts/jquery-3.1.1.slim.min.js')
-        script(src="/socket.io-client/dist/socket.io.js")
-        script(src='/scripts/jquery.js')
+        //script(src="/socket.io-client/dist/socket.io.js")
+        //script(src='/scripts/jquery.js')
         link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
         link(rel='stylesheet', href='/stylesheets/main.css')
         link(rel='stylesheet', href='/stylesheets/font-awesome.min.css')
-        script(src="/scripts/ckeditor/ckeditor.js")
-        script.
+        //script(src="/scripts/ckeditor/ckeditor.js")
+        //script.
             var socket = io();
     body            
         nav.navbar.navbar-inverse.bg-inverse.navbar-toggleable-md
@@ -31,6 +31,18 @@ html
                             a.nav-link(href='#') Link
                         //li.nav-item
                             a.nav-link.disabled(href='#') Disabled
+                        if user && user.isRoot===true
+                            li.nav-item.dropdown
+                                a#usersdropdown.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                                    i.fa.fa-users
+                                    |  Users
+                                .dropdown-menu(aria-labelledby='dropdown02')                                
+                                    a.dropdown-item(href='/register') 
+                                        i.fa.fa-user-plus
+                                        |  Register
+                                    a.dropdown-item(href='/register') 
+                                        i.fa.fa-list-alt
+                                        |  Management
                         li.nav-item.dropdown
                             a#dropdown02.nav-link.dropdown-toggle(href='http://example.com', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                                 i.fa.fa-user 
@@ -39,7 +51,7 @@ html
                                 else
                                     |  Account
                             .dropdown-menu(aria-labelledby='dropdown02')
-                                if user
+                                if user                                    
                                     a.dropdown-item(href='/logout') 
                                         i.fa.fa-sign-out
                                         |  Logout
@@ -47,9 +59,7 @@ html
                                     a.dropdown-item(href='/login') 
                                         i.fa.fa-sign-in
                                         |  Login
-                                    a.dropdown-item(href='/register') 
-                                        i.fa.fa-user-plus
-                                        |  Register
+                                    
                 //form.form-inline.my-2.my-md-0
                     input.form-control.mr-sm-2(type='text', placeholder='Search')
                     button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
@@ -115,10 +125,17 @@ html
     .album.text-muted
         .container
             block content
+    script(src='/scripts/jquery.js')
+    script(src="/socket.io-client/dist/socket.io.js")    
     script(src="/scripts/tether.min.js")
     script(src="/scripts/bootstrap.min.js")
     script(src="/scripts/holder.min.js")
+    script(src="/scripts/ckeditor/ckeditor.js")
 
+    script.
+            var socket = io();
+    block script
+    
     script.
         $(function () {
             Holder.addTheme("thumb", { background: "#55595c", foreground: "#eceeef", text: "Thumbnail" });

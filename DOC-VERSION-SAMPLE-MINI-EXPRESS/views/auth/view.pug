@@ -1,0 +1,31 @@
+﻿extends ../layout
+
+block content
+    .container
+        .row 
+            h1
+                | Management
+        .row
+            .table-responsive
+                table.table.table-striped
+                    thead
+                        tr
+                            td
+                                |
+                            td
+                                | Time
+                            td
+                                | Edited By
+                            td
+                                |
+                    tbody
+                        each v in histories
+                            tr
+                                td                               
+                                    input.checkbox(type='checkbox', id="chkCompare"+ v.id, value=v.id)  
+                                td
+                                    label(for="chkCompare"+ v.id) !{v.updatedAt}
+                                td
+                                    | !{ v.updatedBy.username}
+                                td
+                                    a(href="/view/"+ v.id)  View 

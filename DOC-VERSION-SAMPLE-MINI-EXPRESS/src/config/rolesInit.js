@@ -1,11 +1,11 @@
-﻿const { FEATURES, ROLE, PERMISSIONS } = require('../common/const/authorize');
+﻿const { FEATURES, ROLES, PERMISSIONS } = require('../common/const/authorize');
 
 module.exports = function (models) {
     return models.roles.findOne({}).then(function (res) {
         if (res === null) {
             return models.roles.bulkCreate([
                 {
-                    name: ROLE.ROOT,
+                    name: ROLES.ROOT,
                     permissions: [
                         {
                             feature: FEATURES.DOCUMENT,
@@ -26,7 +26,7 @@ module.exports = function (models) {
                         }
                     ]
                 }, {
-                    name: ROLE.ADMIN,
+                    name: ROLES.ADMIN,
                     permissions: [
                         {
                             feature: FEATURES.DOCUMENT,
@@ -40,7 +40,7 @@ module.exports = function (models) {
                     ]
                 },
                 {
-                    name: ROLE.MOD,
+                    name: ROLES.MOD,
                     permissions: [
                         {
                             feature: FEATURES.DOCUMENT,
@@ -53,7 +53,7 @@ module.exports = function (models) {
                     ]
                 },
                 {
-                    name: ROLE.USER,
+                    name: ROLES.USER,
                     permissions: [
                         {
                             feature: FEATURES.DOCUMENT,

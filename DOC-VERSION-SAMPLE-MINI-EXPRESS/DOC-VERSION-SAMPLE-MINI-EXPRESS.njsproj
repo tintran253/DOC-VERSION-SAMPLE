@@ -279,9 +279,7 @@
     <Compile Include="public\scripts\tether.min.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\docs.js" />
-    <Compile Include="src\common\const\authorize.js">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="src\common\const\authorize.js" />
     <Compile Include="src\common\passport.js">
       <SubType>Code</SubType>
     </Compile>
@@ -291,12 +289,11 @@
     <Compile Include="src\common\responseHandler.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="src\config\rolesInit.js">
+    <Compile Include="src\config\rolesInit.js" />
+    <Compile Include="src\config\sideInit.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="src\config\userInit.js">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="src\config\userInit.js" />
     <Compile Include="src\models\docsVersions.js">
       <SubType>Code</SubType>
     </Compile>
@@ -306,7 +303,9 @@
     <Compile Include="src\models\index.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="src\models\roles.js" />
+    <Compile Include="src\models\roles.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\models\sides.js">
       <SubType>Code</SubType>
     </Compile>
@@ -523,11 +522,11 @@
     <Content Include="views\docs\view.pug">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\upload.pug" />
-    <Content Include="views\index.pug" />
+    <Content Include="views\docs\upload.pug" />
+    <Content Include="views\home\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
-    <Content Include="views\login.pug">
+    <Content Include="views\auth\login.pug">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>
@@ -653,6 +652,7 @@
     <Folder Include="views\" />
     <Folder Include="views\auth\" />
     <Folder Include="views\docs\" />
+    <Folder Include="views\home\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />

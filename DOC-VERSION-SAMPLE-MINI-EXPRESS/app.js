@@ -23,6 +23,7 @@ var http = require('http').Server(app);
 
 var rolesInit = require('./src/config/rolesInit');
 var userInit = require('./src/config/userInit');
+var sideInit = require('./src/config/sideInit');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -75,8 +76,8 @@ app.use(function (err, req, res, next) {
     });
 });
 
-models.sequelize.sync().then(function () {
-    return Q.all([rolesInit(models), userInit(models)]);
+models.sequelize.sync({force:true}).then(function () {
+    return Q.all([rolesInit(models), userInit(models), sideInit(models)]);
 }).then(function (res) {
     var port = process.env.PORT || 1111;
     var server = app.listen(port, function () {

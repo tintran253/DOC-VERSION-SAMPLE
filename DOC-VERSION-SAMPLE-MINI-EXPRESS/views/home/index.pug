@@ -1,4 +1,4 @@
-﻿extends layout
+﻿extends ../layout
 block header
   section.jumbotron.text-center
     .container
@@ -10,8 +10,8 @@ block header
     .text-center
       .container
         p#custom-margin
-          a.btn.btn-primary(href='/register') Register
-          a.btn.btn-secondary(href='/login') Login  
+          //a.btn.btn-primary(href='/register') Register
+          a.btn.btn-primary(href='/login') Login  
 block content  
   if user
     .row#custom-margin

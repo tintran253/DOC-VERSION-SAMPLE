@@ -1,8 +1,4 @@
-﻿module.exports.SIDE = {
-    ALL: 'all',
-};
-
-module.exports.ROLE = {
+﻿module.exports.ROLES = {
     ROOT: 'root',
     ADMIN: 'admin',
     MOD: 'mod',
@@ -21,3 +17,30 @@ module.exports.PERMISSIONS = {
     EDIT: 'edit',
     AUTHORIZE: 'authorize'
 };
+
+module.exports.SIDES = {
+    ALL: 'all',
+    PKNL: {
+        name: 'PKNL',
+        shortName: 'PKNL'
+    }
+    ,
+    IVFMD: {
+        name: 'IVFMD',
+        shortName: 'IVFMD'
+    }
+    ,
+    IVFAS: {
+        name: 'IVFAS',
+        shortName: 'IVFAS'
+    }
+    ,
+    IVFVH: {
+        name: 'IVFVH',
+        shortName: 'IVFVH'
+    },
+    IVFMD_PNH: {
+        name: 'IVFMD - Phú Nhuận',
+        shortName: 'IVFMD_PNH'
+    }
+}

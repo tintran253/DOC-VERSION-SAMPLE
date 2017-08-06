@@ -23,7 +23,7 @@ router.get('/',
     passport.authenticate('auth', { session: false, failureRedirect: '/login' }),
     responseHandler,
     function (req, res) {
-        res.render('upload', { title: 'word docs' });
+        res.render('docs/upload', { title: 'word docs' });
     });
 
 router.post('/',
@@ -58,7 +58,7 @@ router.post('/',
                     });
                 });
             }).then(function (result) {
-                res.render('upload', { title: 'words only', result: result.content });
+                res.render('docs/upload', { title: 'words only', result: result.content });
             });
         });
         req.pipe(busboy);
