@@ -10,13 +10,10 @@ module.exports = function (sequelize, DataTypes) {
         password: {
             type: DataTypes.STRING
         },
-        sides: {
-            type: DataTypes.ARRAY(DataTypes.STRING)
-        },
         permissions: {
             type: DataTypes.ARRAY(DataTypes.JSON)
         },
-        root: DataTypes.BOOLEAN
+        isRoot: DataTypes.BOOLEAN
     });
     users.associate = function (models) {
         //const users.permissions = users.hasMany(models.roles);

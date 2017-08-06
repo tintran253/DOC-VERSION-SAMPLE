@@ -279,6 +279,9 @@
     <Compile Include="public\scripts\tether.min.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\docs.js" />
+    <Compile Include="src\common\const\authorize.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\common\passport.js">
       <SubType>Code</SubType>
     </Compile>
@@ -286,6 +289,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\common\responseHandler.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\config\rolesInit.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="src\config\userInit.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="src\models\docsVersions.js">
@@ -629,6 +638,7 @@
     <Folder Include="public\scripts\ckeditor\skins\moono-lisa\images\" />
     <Folder Include="public\scripts\ckeditor\skins\moono-lisa\images\hidpi\" />
     <Folder Include="src\" />
+    <Folder Include="src\common\const\" />
     <Folder Include="src\models\" />
     <Folder Include="src\config\" />
     <Folder Include="src\common\" />
